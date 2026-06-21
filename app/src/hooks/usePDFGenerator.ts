@@ -10,7 +10,7 @@ export interface QueuedImage {
   dimensions?: { width: number; height: number };
 }
 
-export type AppState = 'upload' | 'queue' | 'processing' | 'success';
+export type AppState = 'upload' | 'queue' | 'processing' | 'preview' | 'success';
 
 // Convert a File to a base64 data URL so jsPDF can always embed it,
 // even after the blob URL has been revoked or the page reloads.
@@ -173,7 +173,7 @@ export function usePDFGenerator() {
 
       const blob = pdf.output('blob');
       setPdfBlob(blob);
-      setAppState('success');
+      setAppState('preview');
     } catch (error) {
       console.error('Error creating PDF:', error);
       setAppState('queue');
@@ -213,5 +213,6 @@ export function usePDFGenerator() {
     createPDF,
     downloadPDF,
     resetToUpload,
+    pdfBlob,
   };
 }

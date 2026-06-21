@@ -6,8 +6,8 @@ import Footer from './components/Footer';
 import UploadZone from './components/UploadZone';
 import ImageQueue from './components/ImageQueue';
 import Processing from './components/Processing';
+import PDFPreview from './components/PDFPreview';
 import Success from './components/Success';
-import AdBanner from './components/AdBanner';
 
 const Scene3D = lazy(() => import('./components/Scene3D'));
 
@@ -41,6 +41,7 @@ export default function App() {
     createPDF,
     downloadPDF,
     resetToUpload,
+    pdfBlob,
   } = usePDFGenerator();
 
   const handleGlobalDragOver = useCallback((e: React.DragEvent) => {
@@ -123,6 +124,15 @@ export default function App() {
             />
           )}
 
+          {appState === 'preview' && pdfBlob && (
+            <PDFPreview
+              key="preview"
+              pdfBlob={pdfBlob}
+              onDownload={downloadPDF}
+              onConvertAnother={resetToUpload}
+            />
+          )}
+
           {appState === 'success' && (
             <Success
               key="success"
@@ -167,9 +177,6 @@ export default function App() {
           )}
         </AnimatePresence>
       </main>
-
-      {/* Ad Banner */}
-      <AdBanner />
 
       {/* Footer */}
       <Footer />
