@@ -224,7 +224,7 @@ interface ImageCardProps {
 }
 
 function ImageCard({
-  image, index, total, isDragOver,
+  image, index, isDragOver,
   onRemove,
   onDragStart, onDragOver, onDragLeave, onDrop, onDragEnd,
   animate,
@@ -270,7 +270,7 @@ function ImageCard({
           console.error('Error in drop:', err);
         }
       }}
-      onDragEnd={(e) => {
+      onDragEnd={(_e) => {
         try {
           onDragEnd();
         } catch (err) {
